@@ -14,8 +14,8 @@ jobs:
       - name: Build and Push - Azure
         run: mass image push storage/bloby -a ${{ secrets.AUTHENTICATION_ARTIFACT_ID_AZURE }} -r west-us
         env:
-          MASSDRIVER_ORG_ID=${{ secrets.MASSDRIVER_ORG_ID }}
-          MASSDRIVER_API_KEY=${{ secrets.MASSDRIVER_API_KEY }}
+          MASSDRIVER_ORG_ID: ${{ secrets.MASSDRIVER_ORG_ID }}
+          MASSDRIVER_API_KEY: ${{ secrets.MASSDRIVER_API_KEY }}
 
 
 
