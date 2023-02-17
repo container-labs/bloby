@@ -1,0 +1,22 @@
+name: Docker Build & Push
+on:
+  push:
+    branches: [main,test-mass]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Install Massdriver CLI
+        uses: massdriver-cloud/actions/setup@v2.1
+      - name: Setup Env
+        run: export MASSDRIVER_ORG_ID=${{ secrets.MASSDRIVER_ORG_ID }} ; export MASSDRIVER_API_KEY=${{ secrets.MASSDRIVER_API_KEY }} ;
+      - name: Build and Push - Azure
+        run: mass image push storage/bloby -a ${{ secrets.AUTHENTICATION_ARTIFACT_ID_AZURE }} -r west-us
+
+
+
+
+
