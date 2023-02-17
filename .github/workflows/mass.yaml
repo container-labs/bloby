@@ -4,7 +4,7 @@ on:
     branches: [main,test-mass]
 
 jobs:
-  build:
+  push_aws:
     runs-on: ubuntu-latest
     env:
       MASSDRIVER_ORG_ID: ${{ secrets.MASSDRIVER_ORG_ID }}
@@ -16,11 +16,31 @@ jobs:
         uses: massdriver-cloud/actions/setup@v2.1
       - name: Build and Push - AWS
         run: mass image push storage/bloby -a ${{ secrets.AUTHENTICATION_ARTIFACT_ID_AWS }} -r us-west-2
+
+  push_azure:
+    runs-on: ubuntu-latest
+    env:
+      MASSDRIVER_ORG_ID: ${{ secrets.MASSDRIVER_ORG_ID }}
+      MASSDRIVER_API_KEY: ${{ secrets.MASSDRIVER_API_KEY }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Install Massdriver CLI
+        uses: massdriver-cloud/actions/setup@v2.1
       - name: Build and Push - Azure
-        run: mass image push storage/bloby -a ${{ secrets.AUTHENTICATION_ARTIFACT_ID_AZURE }} -r west-us
+        run: mass image push storage/bloby -a ${{ secrets.AUTHENTICATION_ARTIFACT_ID_AZURE }} -r westus
+
+  push_gcp:
+    runs-on: ubuntu-latest
+    env:
+      MASSDRIVER_ORG_ID: ${{ secrets.MASSDRIVER_ORG_ID }}
+      MASSDRIVER_API_KEY: ${{ secrets.MASSDRIVER_API_KEY }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Install Massdriver CLI
+        uses: massdriver-cloud/actions/setup@v2.1
       - name: Build and Push - GCP
         run: mass image push storage/bloby -a ${{ secrets.AUTHENTICATION_ARTIFACT_ID_GCP }} -r us-west2
-
-
 
 
