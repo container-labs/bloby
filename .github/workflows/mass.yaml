@@ -15,7 +15,7 @@ jobs:
       - name: Install Massdriver CLI
         uses: massdriver-cloud/actions/setup@v2.1
       - name: Build and Push - AWS
-        run: mass image push storage/bloby -a ${{ secrets.AUTHENTICATION_ARTIFACT_ID_AWS }} -r us-west
+        run: mass image push storage/bloby -a ${{ secrets.AUTHENTICATION_ARTIFACT_ID_AWS }} -r us-west-2
       - name: Build and Push - Azure
         run: mass image push storage/bloby -a ${{ secrets.AUTHENTICATION_ARTIFACT_ID_AZURE }} -r west-us
       - name: Build and Push - GCP
