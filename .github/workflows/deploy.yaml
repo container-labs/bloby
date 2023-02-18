@@ -1,0 +1,29 @@
+name: Docker Build & Push
+on:
+  push:
+    branches: [main,test-mass]
+
+jobs:
+  deploy_aws:
+    runs-on: ubuntu-latest
+    env:
+      MASSDRIVER_ORG_ID: ${{ secrets.MASSDRIVER_ORG_ID }}
+      MASSDRIVER_API_KEY: ${{ secrets.MASSDRIVER_API_KEY }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Set outputs
+        id: vars
+        run: echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
+      - name: Install Massdriver CLI
+        uses: massdriver-cloud/actions/setup@v2.1
+      - name: Build and Push - AWS
+        run: mass image push storage/bloby -a ${{ secrets.AUTHENTICATION_ARTIFACT_ID_AWS }} -r us-west-2 -t ${{ steps.vars.outputs.sha_short }}
+      # Deploy
+      - name: Update Tag
+        run: cat mass-app-params.json | sed s/IMAGE_TAG/${{ steps.vars.outputs.sha_short }}/ > mass-app-params-rendered.json
+      - name: Configure Package
+        run: mass package configure azure-beebe-blobyfun-2pj4 -f mass-app-params-rendered.json
+      # - name: Deploy
+      #   run: mass app deploy azure-beebe-blobyfun-2pj4
+

@@ -1,0 +1,21 @@
+{
+  "application": {
+    "health_check_path": "/health",
+    "logs": {
+        "disk_quota_mb": 50,
+        "retention_period_days": 7
+    },
+    "maximum_worker_count": 3,
+    "minimum_worker_count": 1,
+    "sku_name": "S1",
+    "zone_balancing": false
+  },
+  "dns": {
+      "enable_dns": true,
+      "zone_id": "/subscriptions/4718857a-5dbe-452c-a172-21a3ae74304f/resourceGroups/mdazuresbx-domain/providers/Microsoft.Network/dnszones/mdazuresbx.com",
+      "subdomain": "cog-001"
+  },
+  "docker": {
+      "tag": "IMAGE_TAG"
+  }
+}
