@@ -1,4 +1,4 @@
-name: Docker Build & Push
+name: Deploy to Massdriver
 on:
   push:
     branches: [main,test-mass]
@@ -24,6 +24,6 @@ jobs:
         run: cat mass-app-params.json | sed s/IMAGE_TAG/${{ steps.vars.outputs.sha_short }}/ > mass-app-params-rendered.json
       - name: Configure Package
         run: mass package configure azure-beebe-blobyfun-2pj4 -f mass-app-params-rendered.json
-      # - name: Deploy
-      #   run: mass app deploy azure-beebe-blobyfun-2pj4
+      - name: Deploy
+        run: mass app deploy azure-beebe-blobyfun-2pj4
 

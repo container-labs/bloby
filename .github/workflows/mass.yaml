@@ -1,4 +1,4 @@
-name: Docker Build & Push
+name: Massdriver Docker Build & Push
 on:
   push:
     branches: [main,test-mass]
